@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Arcade</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/arcade.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Welcome to the Arcade!</h1>
+    <h2>Select a game to play:</h2>
+    <ul>
+      <li>
+        <a href="{{ url_for('play_game', game_name='pacman') }}">Pacman</a>
+      </li>
+      <li>
+        <a href="{{ url_for('play_game', game_name='space_invaders') }}"
+          >Space Invaders</a
+        >
+      </li>
+      <li><a href="{{ url_for('play_game', game_name='snake') }}">Snake</a></li>
+    </ul>
+    <h2>High Scores:</h2>
+    <ul>
+      <li>
+        <a href="{{ url_for('high_scores', game='pacman') }}"
+          >Pacman High Scores</a
+        >
+      </li>
+      <li>
+        <a href="{{ url_for('high_scores', game='space_invaders') }}"
+          >Space Invaders High Scores</a
+        >
+      </li>
+      <li>
+        <a href="{{ url_for('high_scores', game='snake') }}"
+          >Snake High Scores</a
+        >
+      </li>
+    </ul>
+  </body>
+</html>
