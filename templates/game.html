@@ -10,16 +10,22 @@
   </head>
   <body>
     <h1>{{ game }}</h1>
-    <!-- Game content goes here -->
-    <div>
+    <div id="game-container">
+      <!-- TODO: add proper CSS for this -->
+      <canvas id="game-canvas" width="400" height="400"></canvas>
+    </div>
+    <div id="game-over" style="display: none">
       <h2>Game Over</h2>
       <p>Your score: <span id="score"></span></p>
-      <form action="{{ url_for('gameover', game_name=game) }}" method="post">
+      <form id="score-form" method="post">
         <input type="hidden" id="score-input" name="score" value="" />
         <input type="submit" value="Submit Score" />
       </form>
     </div>
 
+    <script>
+      const gameName = '{{ game }}'; // Get the game name from the template
+    </script>
     <script src="{{ url_for('static', filename='js/game.js') }}"></script>
   </body>
 </html>

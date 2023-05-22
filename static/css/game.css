@@ -42,3 +42,7 @@ input[type='submit'] {
 input[type='submit']:hover {
   background-color: #00ff00;
 }
+
+#game-canvas {
+  border: white solid;
+}
