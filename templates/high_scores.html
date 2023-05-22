@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ game }} - High Scores</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/arcade.css') }}"
+    />
+  </head>
+  <body>
+    <h1>{{ game }} High Scores</h1>
+    <ul>
+      {% for score in scores %}
+      <li>{{ score }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
