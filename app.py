@@ -13,7 +13,10 @@ def play_game(game_name):
 
 @app.route('/game/<game_name>/gameover', methods=['POST'])
 def gameover(game_name):
-    score = int(request.form.get('score'))
+    score = request.form.get('score')
+    if not score: 
+        raise Exception
+    score = int(score)
     # Save the score for the game here
     return redirect(url_for('high_scores', game=game_name))
 
