@@ -1,0 +1,44 @@
+/* game.css */
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  font-size: 40px;
+  margin: 20px 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+form {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#score {
+  font-size: 24px;
+  color: #00ff00;
+}
+
+input[type='submit'] {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #ff00ff;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+input[type='submit']:hover {
+  background-color: #00ff00;
+}
