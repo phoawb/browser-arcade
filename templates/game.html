@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ game }} - Arcade</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/game.css') }}"
+    />
+  </head>
+  <body>
+    <h1>{{ game }}</h1>
+    <!-- Game content goes here -->
+    <div>
+      <h2>Game Over</h2>
+      <p>Your score: <span id="score"></span></p>
+      <form action="{{ url_for('gameover', game_name=game) }}" method="post">
+        <input type="hidden" id="score-input" name="score" value="" />
+        <input type="submit" value="Submit Score" />
+      </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+  </body>
+</html>
