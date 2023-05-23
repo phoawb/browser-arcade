@@ -11,13 +11,16 @@
   <body>
     <h1>{{ game }}</h1>
     <div id="game-container">
-      <!-- TODO: add proper CSS for this -->
       <canvas id="game-canvas" width="400" height="400"></canvas>
     </div>
     <div id="game-over" style="display: none">
       <h2>Game Over</h2>
       <p>Your score: <span id="score"></span></p>
-      <form id="score-form" method="post">
+      <form
+        id="score-form"
+        action="{{ url_for('gameover', game_name=game) }}"
+        method="post"
+      >
         <input type="hidden" id="score-input" name="score" value="" />
         <input type="submit" value="Submit Score" />
       </form>
