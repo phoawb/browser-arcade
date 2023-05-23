@@ -1,6 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
 import json
 
+def load_scores():
+    with open('scores.json') as f:
+        return json.load(f)
+
+def save_scores(scores):
+    with open('scores.json', 'w') as f:
+        json.dump(scores, f, indent=2)
+
+
 app = Flask(__name__)
 
 @app.route('/')
