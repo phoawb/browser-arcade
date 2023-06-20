@@ -1,3 +1,5 @@
+let score = 0;
+
 // Defines a general class used to specify game objects.
 class GameObject {
   constructor(x, y, width, height, color) {
@@ -264,7 +266,9 @@ game.update = function () {
     for (let j = 0; j < game.enemies[i].bullets.length; j++) {
       if (game.player.collidesWith(game.enemies[i].bullets[j])) {
         // Reset the game
-        game.restart();
+        //TODO: add logic to decrease lives and respawn the player
+        //TODO: add game over logic
+        game.stop();
         break;
       }
     }
@@ -279,16 +283,17 @@ game.update = function () {
 };
 // Defines a function to handle key events
 game.keydown = function (e) {
+  console.log(e.key);
   // If the left arrow key is pressed, move the player left.
-  if (e.keyCode == 37 || e.keyCode == 65) {
+  if (e.key == 'ArrowLeft' || e.key == 'a') {
     game.player.update(-5, 0);
   }
   // If the right arrow key is pressed, move the player right.
-  else if (e.keyCode == 39 || e.keyCode == 68) {
+  else if (e.key == 'ArrowRight' || e.key == 'd') {
     game.player.update(5, 0);
   }
   // If the space bar is pressed, fire a bullet.
-  else if (e.keyCode == 32) {
+  else if (e.key == ' ') {
     game.player.shoot(-5);
   }
 };
