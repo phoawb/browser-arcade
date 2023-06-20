@@ -167,11 +167,21 @@ game.enemyStep = 5;
 game.score = 0;
 // Player lives
 game.lives = 3;
+
+// reset player position
+game.resetPlayer = function () {
+  game.player.x = game.canvas.width / 2 - 50;
+  game.player.y = game.canvas.height - 50;
+};
 // Defines a function to handle the game loop
 game.update = function () {
   // Draw canvas background
   game.ctx.fillStyle = game.backgroundColor;
   game.ctx.fillRect(0, 0, game.canvas.width, game.canvas.height);
+  game.ctx.fillStyle = '#ffffff'; // Set fillStyle to white (hex color code)
+  game.ctx.font = '20px Arial';
+  game.ctx.fillText(`Lives: ${game.lives}`, 10, 30);
+  game.ctx.fillText(`Score: ${game.score}`, game.canvas.width - 120, 30);
   // Draw player
   game.player.draw(game.ctx);
   // Draw asteroids
@@ -183,6 +193,7 @@ game.update = function () {
     game.enemies[i].draw(game.ctx);
     game.enemies[i].update(game.enemyDirection, 0);
   }
+
   // Check if the player has destroyed all enemies
   if (game.enemies.length == 0) {
     // Reset the game
@@ -240,7 +251,6 @@ game.update = function () {
   for (let i = 0; i < game.player.bullets.length; i++) {
     for (let j = 0; j < game.asteroids.length; j++) {
       if (game.asteroids[j].collidesWith(game.player.bullets[i])) {
-        score += 10;
         game.asteroids[j].removeOnCollide(game.player.bullets[i]);
         game.player.bullets.splice(i, 1);
         break;
@@ -263,6 +273,7 @@ game.update = function () {
   for (let i = 0; i < game.player.bullets.length; i++) {
     for (let j = 0; j < game.enemies.length; j++) {
       if (game.enemies[j].collidesWith(game.player.bullets[i])) {
+        game.score += 10;
         game.enemies.splice(j, 1);
         game.player.bullets.splice(i, 1);
         break;
@@ -275,7 +286,11 @@ game.update = function () {
       if (game.player.collidesWith(game.enemies[i].bullets[j])) {
         // Reset the game
         //TODO: add logic to decrease lives and respawn the player
-        game.gameOver();
+        game.lives--;
+        if (game.lives == 0) {
+          game.gameOver();
+        }
+        game.resetPlayer();
         break;
       }
     }
@@ -357,8 +372,8 @@ game.stop = function () {
 
 game.gameOver = function () {
   game.stop();
-  document.getElementById('score').textContent = score;
-  document.getElementById('score-input').value = score;
+  document.getElementById('score').textContent = game.score;
+  document.getElementById('score-input').value = game.score;
   document.getElementById('game-over').style.display = 'block';
   document.getElementById('restart-button').style.display = 'block';
 };
