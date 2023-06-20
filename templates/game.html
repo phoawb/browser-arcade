@@ -11,24 +11,31 @@
   <body>
     <h1>{{ game }}</h1>
     <div id="game-container">
-      <canvas id="game-canvas" width="400" height="400"></canvas>
+      <canvas id="game-canvas" width="800" height="600"></canvas>
     </div>
     <div id="game-over" style="display: none">
       <h2>Game Over</h2>
       <p>Your score: <span id="score"></span></p>
-      <form
-        id="score-form"
-        action="{{ url_for('gameover', game_name=game) }}"
-        method="post"
-      >
-        <input type="hidden" id="score-input" name="score" value="" />
-        <input type="submit" value="Submit Score" />
-      </form>
+      <div id="button-container">
+        <button id="restart-button" onclick="restartGame()">Restart</button>
+        <form
+          id="score-form"
+          action="{{ url_for('gameover', game_name=game) }}"
+          method="post"
+        >
+          <input type="hidden" id="score-input" name="score" value="" />
+          <input type="submit" value="Submit Score" />
+        </form>
+      </div>
+    </div>
+    <div id="game-info" style="display: none">
+      <p>Score: <span id="score-display"></span></p>
+      <p>Lives: <span id="lives-display"></span></p>
     </div>
 
     <script>
       const gameName = '{{ game }}'; // Get the game name from the template
     </script>
-    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/' ~ game ~ '.js') }}"></script>
   </body>
 </html>

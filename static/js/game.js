@@ -12,13 +12,19 @@ let direction = 'right';
 let score = 0;
 let gameLoop;
 
+// Restart the game
+function restartGame() {
+  location.reload(); // Reload the page to restart the game
+}
+
 // Change snake direction based on arrow keys
 function changeSnakeDirection(event) {
-  const key = event.keyCode;
-  const upArrow = 38;
-  const downArrow = 40;
-  const leftArrow = 37;
-  const rightArrow = 39;
+  console.log('changing direction...');
+  const key = event.key;
+  const upArrow = 'ArrowUp';
+  const downArrow = 'ArrowDown';
+  const leftArrow = 'ArrowLeft';
+  const rightArrow = 'ArrowRight';
 
   switch (key) {
     case upArrow:
@@ -50,6 +56,7 @@ function gameOverSnake() {
   document.getElementById('score').textContent = score;
   document.getElementById('score-input').value = score;
   document.getElementById('game-over').style.display = 'block';
+  document.getElementById('restart-button').style.display = 'block';
 }
 
 // Update Snake game state
@@ -73,10 +80,7 @@ function updateSnakeGame() {
   }
 
   // Check collision with walls or self
-  console.log('x is:', head.x);
-  console.log('y is:', head.y);
-  console.log('gridHeight is:', gridHeight);
-  console.log('gridWidth is:', gridWidth);
+
   if (
     head.x < 0 ||
     head.y < 0 ||
@@ -105,25 +109,10 @@ function updateSnakeGame() {
 
   // Draw game objects
   drawSnakeGame();
-}
-
-// Game initialization
-function initGame() {
-  // Initialize the game based on gameName
-  if (gameName === 'snake') {
-    initSnakeGame();
-    document.addEventListener('keydown', changeSnakeDirection);
-    gameLoop = setInterval(updateSnakeGame, 150);
-  } else if (gameName === 'pacman') {
-    initPacmanGame();
-  } else if (gameName === 'space_invaders') {
-    initSpaceInvadersGame();
-  } else {
-    console.error('Invalid game name!');
-    return;
-  }
-
-  clearInterval(gameLoop);
+  // Delay before requesting the next animation frame
+  setTimeout(function () {
+    requestAnimationFrame(updateSnakeGame);
+  }, 1000 / 10); // Delay of 100 milliseconds (10 frames per second)
 }
 
 // Draw snake game objects on the canvas
@@ -166,13 +155,240 @@ function generateSnakeFood() {
 
 // Initialize Snake game
 function initSnakeGame() {
+  console.log('initializing the snake game:');
+  document.addEventListener('keydown', changeSnakeDirection);
   snake = [{ x: 10, y: 10 }];
   food = { x: 15, y: 10 };
   direction = 'right';
   score = 0;
+  //clearInterval(gameLoop);
+  //document.addEventListener('keydown', changeSnakeDirection);
+  updateSnakeGame();
+  //gameLoop = setInterval(updateSnakeGame, 150);
+}
+
+// -------------------------------------------------------- SPACE INVADERS GAME LOGIC ----------------------------------------------------
+
+// Game variables
+let invaders = [];
+let bullets = [];
+let player = {
+  x: canvas.width / 2,
+  y: canvas.height - 30,
+  width: 20,
+  height: 20,
+};
+let lives = 3;
+
+// Create invaders
+function createInvaders() {
+  for (let row = 0; row < 5; row++) {
+    for (let col = 0; col < 10; col++) {
+      invaders.push({
+        x: col * 50 + 30,
+        y: row * 30 + 30,
+        width: 20,
+        height: 20,
+        destroyed: false,
+      });
+    }
+  }
+}
+
+// Move invaders
+function moveInvaders() {
+  invaders.forEach((invader) => {
+    invader.x += 2;
+  });
+}
+
+/* function moveInvaders() {
+  let reachedEdge = false;
+
+  // Check if any invader has reached the edge of the screen
+  invaders.forEach((invader) => {
+    // Check if invader has reached the right edge
+    if (invader.direction === 1 && invader.x + invader.width >= canvas.width) {
+      reachedEdge = true;
+    }
+
+    // Check if invader has reached the left edge
+    if (invader.direction === -1 && invader.x <= 0) {
+      reachedEdge = true;
+    }
+  });
+
+  // If invaders reached the edge, change direction and move down
+  if (reachedEdge) {
+    invaders.forEach((invader) => {
+      invader.direction *= -1; // Change direction
+      invader.y += invader.height; // Move down
+    });
+  }
+
+  // Move invaders horizontally
+  invaders.forEach((invader) => {
+    invader.x += invader.direction * 2; // Update x-position based on direction
+  });
+} */
+
+// Move bullets
+function moveBullets() {
+  bullets.forEach((bullet) => {
+    bullet.y -= 5;
+  });
+}
+
+// Check collision between bullet and invader
+function checkBulletInvaderCollision() {
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    const bullet = bullets[i];
+
+    for (let j = invaders.length - 1; j >= 0; j--) {
+      const invader = invaders[j];
+
+      if (
+        !invader.destroyed &&
+        bullet.x >= invader.x - invader.width / 2 &&
+        bullet.x <= invader.x + invader.width / 2 &&
+        bullet.y >= invader.y - invader.height / 2 &&
+        bullet.y <= invader.y + invader.height / 2
+      ) {
+        invaders.splice(j, 1);
+        bullets.splice(i, 1);
+        score += 10;
+        break;
+      }
+    }
+  }
+}
+
+// Check collision between player and invader
+function checkPlayerInvaderCollision() {
+  for (let i = invaders.length - 1; i >= 0; i--) {
+    const invader = invaders[i];
+
+    if (
+      !invader.destroyed &&
+      player.x >= invader.x - invader.width / 2 &&
+      player.x <= invader.x + invader.width / 2 &&
+      player.y >= invader.y - invader.height / 2 &&
+      player.y <= invader.y + invader.height / 2
+    ) {
+      invaders.splice(i, 1);
+      lives--;
+
+      if (lives === 0) {
+        gameOverSpaceInvaders();
+      }
+      break;
+    }
+  }
+}
+
+// Update Space Invaders game state
+function updateSpaceInvadersGame() {
+  moveInvaders();
+  moveBullets();
+  checkBulletInvaderCollision();
+  checkPlayerInvaderCollision();
+  drawSpaceInvadersGame();
+  setTimeout(function () {
+    requestAnimationFrame(updateSpaceInvadersGame);
+  }, 1000 / 10); // Delay of 100 milliseconds (10 frames per second)
+}
+
+// Game over logic for Space Invaders game
+function gameOverSpaceInvaders() {
   clearInterval(gameLoop);
-  gameLoop = setInterval(updateSnakeGame, 150);
-  document.addEventListener('keydown', changeSnakeDirection);
+  document.getElementById('game-over').style.display = 'block';
+  document.getElementById('restart-button').style.display = 'block';
+}
+
+// Draw Space Invaders game objects on the canvas
+function drawSpaceInvadersGame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  console.log('drawing space invaders game');
+  // Draw player
+  ctx.fillStyle = '#00ff00';
+  ctx.fillRect(
+    player.x - player.width / 2,
+    player.y - player.height / 2,
+    player.width,
+    player.height
+  );
+  // Draw invaders
+  console.log('invaders length is', invaders.length);
+  invaders.forEach((invader) => {
+    if (!invader.destroyed) {
+      console.log('Tryig to draw invader...');
+      ctx.fillStyle = '#ff0000';
+      ctx.fillRect(
+        invader.x - invader.width / 2,
+        invader.y - invader.height / 2,
+        invader.width,
+        invader.height
+      );
+    }
+  });
+  // Draw bullets
+  bullets.forEach((bullet) => {
+    ctx.fillStyle = '#00ffff';
+    ctx.fillRect(bullet.x - 2, bullet.y - 10, 4, 10);
+  });
+  // Draw lives and score
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '20px Arial';
+  ctx.fillText(`Lives: ${lives}`, 10, 30);
+  ctx.fillText(`Score: ${score}`, canvas.width - 100, 30);
+}
+
+function spaceInvadersControls(event) {
+  const leftArrow = 'ArrowLeft';
+  const rightArrow = 'ArrowRight';
+  const spaceBar = ' ';
+
+  switch (event.key) {
+    case leftArrow:
+      console.log('left arrow was pressed!');
+      player.x -= 5;
+      break;
+    case rightArrow:
+      player.x += 5;
+      break;
+    case spaceBar:
+      bullets.push({ x: player.x, y: player.y });
+      break;
+  }
+}
+
+// Game initialization
+function initSpaceInvadersGame() {
+  console.log('do we go into the fucntion?');
+  createInvaders();
+  document.addEventListener('keydown', spaceInvadersControls);
+  updateSpaceInvadersGame();
+}
+
+// Game initialization
+function initGame() {
+  // Initialize the game based on gameName
+  console.log('game name is:', gameName);
+  if (gameName === 'snake') {
+    initSnakeGame();
+    //gameLoop = setInterval(updateSnakeGame, 150);
+  } else if (gameName === 'pacman') {
+    initPacmanGame();
+  } else if (gameName === 'space_invaders') {
+    console.log('Do we properly get to the space invaders?');
+    initSpaceInvadersGame();
+    gameLoop = setInterval(updateSpaceInvadersGame, 160);
+  } else {
+    console.error('Invalid game name!');
+    return;
+  }
+
+  clearInterval(gameLoop);
 }
 
 // Initialize the game

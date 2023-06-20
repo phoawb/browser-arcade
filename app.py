@@ -2,34 +2,38 @@ from flask import Flask, render_template, request, redirect, url_for
 import os
 import json
 
+
 def load_scores():
-    if not os.path.exists('scores.json'):
-        with open('scores.json', 'w') as f:
+    if not os.path.exists("scores.json"):
+        with open("scores.json", "w") as f:
             json.dump({}, f)
 
-    with open('scores.json') as f:
+    with open("scores.json") as f:
         return json.load(f)
 
 
 def save_scores(scores):
-    with open('scores.json', 'w') as f:
+    with open("scores.json", "w") as f:
         json.dump(scores, f, indent=2)
 
 
 app = Flask(__name__)
 
-@app.route('/')
+
+@app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/game/<game_name>')
+
+@app.route("/game/<game_name>")
 def play_game(game_name):
-    return render_template('game.html', game=game_name)
+    return render_template("game.html", game=game_name)
 
-@app.route('/game/<game_name>/gameover', methods=['POST'])
+
+@app.route("/game/<game_name>/gameover", methods=["POST"])
 def gameover(game_name):
-    score = request.form.get('score')
-    if not score: 
+    score = request.form.get("score")
+    if not score:
         raise Exception
     score = int(score)
 
@@ -54,10 +58,10 @@ def gameover(game_name):
     # Save the updated scores to the JSON file
     save_scores(scores)
 
-    return redirect(url_for('high_scores', game=game_name))
+    return redirect(url_for("high_scores", game=game_name))
 
 
-@app.route('/high_scores/<game>')
+@app.route("/high_scores/<game>")
 def high_scores(game):
     # Load scores from the JSON file
     scores = load_scores()
@@ -65,8 +69,8 @@ def high_scores(game):
     # Get the list of scores for the specific game
     game_scores = scores.get(game, [])
 
-    return render_template('high_scores.html', game=game, scores=game_scores)
+    return render_template("high_scores.html", game=game, scores=game_scores)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

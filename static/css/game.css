@@ -20,9 +20,14 @@ h2 {
   margin: 20px 0;
 }
 
+#button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 form {
   text-align: center;
-  margin-top: 20px;
 }
 
 #score {
@@ -31,7 +36,8 @@ form {
 }
 
 input[type='submit'] {
-  padding: 10px 20px;
+  height: 50px;
+  width: 120px;
   font-size: 18px;
   background-color: #ff00ff;
   color: #000;
@@ -40,6 +46,21 @@ input[type='submit'] {
 }
 
 input[type='submit']:hover {
+  background-color: #00ff00;
+}
+
+#restart-button {
+  margin-right: 10px;
+  height: 50px;
+  width: 80px;
+  font-size: 18px;
+  background-color: #ff00ff;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+#restart-button:hover {
   background-color: #00ff00;
 }
 
