@@ -1,4 +1,7 @@
-let score = 0;
+// Restart the game
+function restartGame() {
+  location.reload(); // Reload the page to restart the game
+}
 
 // Defines a general class used to specify game objects.
 class GameObject {
@@ -160,6 +163,10 @@ game.enemyFireRate = 1000;
 game.enemyFireTimer = 0;
 game.enemyDirection = 1;
 game.enemyStep = 5;
+// Player score
+game.score = 0;
+// Player lives
+game.lives = 3;
 // Defines a function to handle the game loop
 game.update = function () {
   // Draw canvas background
@@ -233,6 +240,7 @@ game.update = function () {
   for (let i = 0; i < game.player.bullets.length; i++) {
     for (let j = 0; j < game.asteroids.length; j++) {
       if (game.asteroids[j].collidesWith(game.player.bullets[i])) {
+        score += 10;
         game.asteroids[j].removeOnCollide(game.player.bullets[i]);
         game.player.bullets.splice(i, 1);
         break;
@@ -267,8 +275,7 @@ game.update = function () {
       if (game.player.collidesWith(game.enemies[i].bullets[j])) {
         // Reset the game
         //TODO: add logic to decrease lives and respawn the player
-        //TODO: add game over logic
-        game.stop();
+        game.gameOver();
         break;
       }
     }
@@ -283,7 +290,10 @@ game.update = function () {
 };
 // Defines a function to handle key events
 game.keydown = function (e) {
-  console.log(e.key);
+  // TODO: Remove the debug case
+  if (e.key == 'r') {
+    game.gameOver();
+  }
   // If the left arrow key is pressed, move the player left.
   if (e.key == 'ArrowLeft' || e.key == 'a') {
     game.player.update(-5, 0);
@@ -343,6 +353,14 @@ game.init = function () {
 // Defines a function to stop the game loop
 game.stop = function () {
   clearInterval(game.interval);
+};
+
+game.gameOver = function () {
+  game.stop();
+  document.getElementById('score').textContent = score;
+  document.getElementById('score-input').value = score;
+  document.getElementById('game-over').style.display = 'block';
+  document.getElementById('restart-button').style.display = 'block';
 };
 // Defines a function to restart the game
 game.restart = function () {
