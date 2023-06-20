@@ -11,7 +11,11 @@
   <body>
     <h1>{{ game }}</h1>
     <div id="game-container">
-      <canvas id="game-canvas" width="800" height="600"></canvas>
+      <canvas
+        id="game-canvas"
+        width="{% if game == 'snake' %}500{% else %}800{% endif %}"
+        height="{% if game == 'snake' %}500{% else %}600{% endif %}"
+      ></canvas>
     </div>
     <div id="game-over" style="display: none">
       <h2>Game Over</h2>
