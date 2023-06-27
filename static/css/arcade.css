@@ -1,27 +1,51 @@
 /* arcade.css */
 
+@font-face {
+  font-family: Nostromo;
+  src: url('../fonts/NostromoRough-Black.woff') format('woff');
+}
+
+#game-container {
+  display: flex;
+  justify-content: center; /* Horizontally center elements */
+  align-items: center; /* Vertically center elements */
+  flex-direction: column;
+}
+#score-container {
+  display: flex;
+  justify-content: center; /* Horizontally center elements */
+  align-items: center; /* Vertically center elements */
+  flex-direction: column;
+}
+
 body {
-  background-color: #000;
-  color: #fff;
-  font-family: 'Courier New', monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #121224;
+  color: #0cdcca;
+  font-family: 'Nostromo', 'Courier New', monospace;
   margin: 0;
   padding: 0;
 }
 
 h1 {
   text-align: center;
-  font-size: 40px;
+  font-size: 60px;
   margin: 20px 0;
   text-transform: uppercase;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 40px;
   margin: 20px 0;
+  margin-top: 65px;
 }
 
 ul {
   list-style-type: none;
+  font-size: 30px;
   padding: 0;
   margin: 0;
 }
@@ -31,10 +55,38 @@ li {
 }
 
 a {
+  border-radius: 0.6vw;
   color: #fff;
   text-decoration: none;
 }
 
 a:hover {
-  color: #ff00ff;
+  box-shadow: 0 0 1.8vw #0cdcca;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+button {
+  font-family: Nostromo;
+  font-size: 2.5vw;
+  border: 0.14vw solid #3e424f;
+  border-radius: 0.6vw;
+  color: #0cdcca;
+  background-color: #252732;
+}
+
+button:hover {
+  border: 0.14vw solid #0cdcca;
+  box-shadow: 0 0 1.8vw #0cdcca;
 }

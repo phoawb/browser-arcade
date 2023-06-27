@@ -10,33 +10,37 @@
   </head>
   <body>
     <h1>Welcome to the Arcade!</h1>
-    <h2>Select a game to play:</h2>
-    <ul>
-      <li>
-        <a href="{{ url_for('play_game', game_name='pong') }}">Pong</a>
-      </li>
-      <li>
-        <a href="{{ url_for('play_game', game_name='spaceInvaders') }}"
-          >Space Invaders</a
-        >
-      </li>
-      <li><a href="{{ url_for('play_game', game_name='snake') }}">Snake</a></li>
-    </ul>
-    <h2>High Scores:</h2>
-    <ul>
-      <li>
-        <a href="{{ url_for('high_scores', game='pong') }}">Pong High Scores</a>
-      </li>
-      <li>
-        <a href="{{ url_for('high_scores', game='spaceInvaders') }}"
-          >Space Invaders High Scores</a
-        >
-      </li>
-      <li>
-        <a href="{{ url_for('high_scores', game='snake') }}"
-          >Snake High Scores</a
-        >
-      </li>
-    </ul>
+    <div id="game-container">
+      <h2>Select a game to play:</h2>
+      <ul>
+        <li>
+          <a href="{{ url_for('play_game', game_name='pong') }}">Pong</a>
+        </li>
+        <li>
+          <a href="{{ url_for('play_game', game_name='spaceInvaders') }}"
+            >Space Invaders</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('play_game', game_name='snake') }}">Snake</a>
+        </li>
+      </ul>
+    </div>
+    <div id="score-container">
+      <h2>High Scores:</h2>
+      <ul>
+        <li>
+          <a href="{{ url_for('high_scores', game='pong') }}">Pong</a>
+        </li>
+        <li>
+          <a href="{{ url_for('high_scores', game='spaceInvaders') }}"
+            >Space Invaders</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('high_scores', game='snake') }}">Snake</a>
+        </li>
+      </ul>
+    </div>
   </body>
 </html>
