@@ -64,6 +64,21 @@ input[type='submit']:hover {
   background-color: #00ff00;
 }
 
+#main-menu-button {
+  margin-right: 10px;
+  height: 50px;
+  width: 80px;
+  font-size: 18px;
+  background-color: #ff00ff;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+#main-menu-button:hover {
+  background-color: #00ff00;
+}
+
 #game-canvas {
   border: white solid;
 }

@@ -72,9 +72,9 @@ function drawPaddle() {
 }
 
 function drawScore() {
-  ctx.font = '16px Arial';
+  ctx.font = '20px Arial';
   ctx.fillStyle = '#0095DD';
-  ctx.fillText('Score: ' + score, 8, 20);
+  ctx.fillText('Score: ' + score, 8, 22);
 }
 
 function draw() {
