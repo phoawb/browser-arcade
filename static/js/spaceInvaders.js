@@ -372,10 +372,14 @@ game.stop = function () {
 
 game.gameOver = function () {
   game.stop();
+  const buttonContainer = document.getElementById('button-container');
   document.getElementById('score').textContent = game.score;
   document.getElementById('score-input').value = game.score;
   document.getElementById('game-over').style.display = 'block';
   document.getElementById('restart-button').style.display = 'block';
+  if (buttonContainer) {
+    buttonContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
 };
 // Defines a function to restart the game
 game.restart = function () {
