@@ -15,5 +15,13 @@
       <li>{{ score.score }}</li>
       {% endfor %}
     </ul>
+    <div id="button-container">
+      <button id="game-button" onclick="goToGame(game)">To Game</button>
+      <button id="main-menu-button" onclick="goToMainMenu()">Main Menu</button>
+    </div>
+    <script>
+      const game = '{{ game }}'; // Get the game name from the template
+    </script>
+    <script src="{{ url_for('static', filename='js/arcade.js')}}"></script>
   </body>
 </html>
