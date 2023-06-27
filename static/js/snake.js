@@ -31,27 +31,22 @@ function changeSnakeDirection(event) {
   const leftArrow = 'ArrowLeft';
   const rightArrow = 'ArrowRight';
 
-  switch (key) {
-    case 'ArrowUp':
-      if (direction !== 'down') {
-        direction = 'up';
-      }
-      break;
-    case downArrow:
-      if (direction !== 'up') {
-        direction = 'down';
-      }
-      break;
-    case leftArrow:
-      if (direction !== 'right') {
-        direction = 'left';
-      }
-      break;
-    case rightArrow:
-      if (direction !== 'left') {
-        direction = 'right';
-      }
-      break;
+  if (key == 'ArrowUp' || key == 'w') {
+    if (direction !== 'down') {
+      direction = 'up';
+    }
+  } else if (key == 'ArrowDown' || key == 's') {
+    if (direction !== 'up') {
+      direction = 'down';
+    }
+  } else if (key == 'ArrowLeft' || key == 'a') {
+    if (direction !== 'right') {
+      direction = 'left';
+    }
+  } else if (key == 'ArrowRight' || key == 'd') {
+    if (direction !== 'left') {
+      direction = 'right';
+    }
   }
 }
 
