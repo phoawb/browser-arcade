@@ -16,6 +16,12 @@ function restartGame() {
   location.reload(); // Reload the page to restart the game
 }
 
+function drawScore() {
+  ctx.font = '20px Arial';
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillText('Score: ' + score, 8, 22);
+}
+
 // Change snake direction based on arrow keys
 function changeSnakeDirection(event) {
   console.log('changing direction...');
@@ -26,7 +32,7 @@ function changeSnakeDirection(event) {
   const rightArrow = 'ArrowRight';
 
   switch (key) {
-    case upArrow:
+    case 'ArrowUp':
       if (direction !== 'down') {
         direction = 'up';
       }
@@ -108,6 +114,10 @@ function updateSnakeGame() {
 
   // Draw game objects
   drawSnakeGame();
+
+  // Draw score
+  drawScore();
+
   // Delay before requesting the next animation frame
   setTimeout(function () {
     requestAnimationFrame(updateSnakeGame);
