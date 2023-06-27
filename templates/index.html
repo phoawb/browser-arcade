@@ -13,7 +13,7 @@
     <h2>Select a game to play:</h2>
     <ul>
       <li>
-        <a href="{{ url_for('play_game', game_name='pacman') }}">Pacman</a>
+        <a href="{{ url_for('play_game', game_name='pong') }}">Pong</a>
       </li>
       <li>
         <a href="{{ url_for('play_game', game_name='spaceInvaders') }}"
@@ -25,9 +25,7 @@
     <h2>High Scores:</h2>
     <ul>
       <li>
-        <a href="{{ url_for('high_scores', game='pacman') }}"
-          >Pacman High Scores</a
-        >
+        <a href="{{ url_for('high_scores', game='pong') }}">Pong High Scores</a>
       </li>
       <li>
         <a href="{{ url_for('high_scores', game='spaceInvaders') }}"
