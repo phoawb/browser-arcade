@@ -12,6 +12,8 @@ function restartGame() {
 function gameOver() {
   clearInterval(pongInterval);
   const buttonContainer = document.getElementById('button-container');
+  document.removeEventListener('keydown', keyDownHandler);
+  document.removeEventListener('keyup', keyUpHandler);
   document.getElementById('score').textContent = score;
   document.getElementById('score-input').value = score;
   document.getElementById('game-over').style.display = 'block';
