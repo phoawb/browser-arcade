@@ -54,7 +54,8 @@ input[type='submit'] {
 }
 
 input[type='submit']:hover {
-  background-color: #00ff00;
+  border: 0.14vw solid #0cdcca;
+  box-shadow: 0 0 1.8vw #0cdcca;
 }
 
 #game-canvas {
