@@ -17,7 +17,7 @@ function restartGame() {
 }
 
 function drawScore() {
-  ctx.font = '20px Arial';
+  ctx.font = '20px Nostromo';
   ctx.fillStyle = '#FFFFFF';
   ctx.fillText('Score: ' + score, 8, 22);
 }

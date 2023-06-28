@@ -1,9 +1,14 @@
 /* game.css */
 
+@font-face {
+  font-family: Nostromo;
+  src: url('../fonts/NostromoRough-Black.woff') format('woff');
+}
+
 body {
   background-color: #000;
-  color: #fff;
-  font-family: 'Courier New', monospace;
+  color: #0cdcca;
+  font-family: 'Nostromo', 'Courier New', monospace;
   margin: 0;
   padding: 0;
 }
@@ -16,7 +21,7 @@ h1 {
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 35px;
   margin: 20px 0;
 }
 
@@ -31,54 +36,63 @@ form {
 }
 
 #score {
-  font-size: 24px;
-  color: #00ff00;
+  font-size: 30px;
+  color: #ff00ff;
 }
 
 input[type='submit'] {
+  font-family: Nostromo;
+  font-size: 2.5vw;
+  border: 0.14vw solid #3e424f;
+  border-radius: 0.6vw;
+  color: #0cdcca;
+  background-color: #252732;
+  margin-right: 10px;
   height: 50px;
-  width: 120px;
-  font-size: 18px;
-  background-color: #ff00ff;
-  color: #000;
-  border: none;
   cursor: pointer;
+  /* background-color: #ff00ff; */
 }
 
 input[type='submit']:hover {
   background-color: #00ff00;
 }
 
-#restart-button {
-  margin-right: 10px;
-  height: 50px;
-  width: 80px;
-  font-size: 18px;
-  background-color: #ff00ff;
-  color: #000;
-  border: none;
-  cursor: pointer;
-}
-
-#restart-button:hover {
-  background-color: #00ff00;
-}
-
-#main-menu-button {
-  margin-right: 10px;
-  height: 50px;
-  width: 80px;
-  font-size: 18px;
-  background-color: #ff00ff;
-  color: #000;
-  border: none;
-  cursor: pointer;
-}
-
-#main-menu-button:hover {
-  background-color: #00ff00;
-}
-
 #game-canvas {
   border: white solid;
+}
+
+#game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-over-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-over {
+  text-align: center;
+}
+
+button {
+  font-family: Nostromo;
+  font-size: 2.5vw;
+  border: 0.14vw solid #3e424f;
+  border-radius: 0.6vw;
+  color: #0cdcca;
+  background-color: #252732;
+  margin-right: 10px;
+  height: 50px;
+  cursor: pointer;
+}
+
+button:hover {
+  border: 0.14vw solid #0cdcca;
+  box-shadow: 0 0 1.8vw #0cdcca;
+}
+#score-present {
+  font-size: 30px;
 }

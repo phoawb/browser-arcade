@@ -17,27 +17,29 @@
         height="{% if game == 'snake' %}500{% else %}600{% endif %}"
       ></canvas>
     </div>
-    <div id="game-over" style="display: none">
-      <h2>Game Over</h2>
-      <p>Your score: <span id="score"></span></p>
-      <div id="button-container">
-        <button id="restart-button" onclick="restartGame()">Restart</button>
-        <button id="main-menu-button" onclick="goToMainMenu()">
-          Main Menu
-        </button>
-        <form
-          id="score-form"
-          action="{{ url_for('gameover', game_name=game) }}"
-          method="post"
-        >
-          <input type="hidden" id="score-input" name="score" value="" />
-          <input type="submit" value="Submit Score" />
-        </form>
+    <div id="game-over-content">
+      <div id="game-over" style="display: none">
+        <h2>Game Over</h2>
+        <p id="score-present">Your score: <span id="score"></span></p>
+        <div id="button-container">
+          <button id="restart-button" onclick="restartGame()">Restart</button>
+          <button id="main-menu-button" onclick="goToMainMenu()">
+            Main Menu
+          </button>
+          <form
+            id="score-form"
+            action="{{ url_for('gameover', game_name=game) }}"
+            method="post"
+          >
+            <input type="hidden" id="score-input" name="score" value="" />
+            <input type="submit" value="Submit Score" />
+          </form>
+        </div>
       </div>
-    </div>
-    <div id="game-info" style="display: none">
-      <p>Score: <span id="score-display"></span></p>
-      <p>Lives: <span id="lives-display"></span></p>
+      <div id="game-info" style="display: none">
+        <p>Score: <span id="score-display"></span></p>
+        <p>Lives: <span id="lives-display"></span></p>
+      </div>
     </div>
 
     <script>
