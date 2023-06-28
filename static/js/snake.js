@@ -52,11 +52,15 @@ function changeSnakeDirection(event) {
 
 // Game over logic for Snake game
 function gameOverSnake() {
+  const buttonContainer = document.getElementById('button-container');
   document.removeEventListener('keydown', changeSnakeDirection);
   document.getElementById('score').textContent = score;
   document.getElementById('score-input').value = score;
   document.getElementById('game-over').style.display = 'block';
   document.getElementById('restart-button').style.display = 'block';
+  if (buttonContainer) {
+    buttonContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
 }
 
 // Update Snake game state
