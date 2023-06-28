@@ -128,7 +128,7 @@ function drawSnakeGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Draw snake
   snake.forEach((segment) => {
-    ctx.fillStyle = '#00ff00';
+    ctx.fillStyle = '#0cdcca';
     ctx.fillRect(
       segment.x * gridSize,
       segment.y * gridSize,
