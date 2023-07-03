@@ -11,6 +11,23 @@ let direction = 'right';
 let score = 0;
 let gameLoop;
 
+function getFoodColor() {
+  let colorPalette = [
+    '#ff71ce',
+    '#05ffa1',
+    '#b967ff',
+    '#fffb96',
+    '#01cdfe',
+    '#FF0000',
+    '#0cdcca',
+  ];
+  let colorIndex = Math.floor(Math.random() * colorPalette.length);
+  return colorPalette[colorIndex];
+}
+
+let foodColor = getFoodColor();
+let snakeColor = '#0cdcca';
+
 // Restart the game
 function restartGame() {
   location.reload(); // Reload the page to restart the game
@@ -137,7 +154,8 @@ function drawSnakeGame() {
     );
   });
   // Draw food
-  ctx.fillStyle = '#ff0000';
+  foodColor = getFoodColor();
+  ctx.fillStyle = foodColor;
   ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
 }
 
