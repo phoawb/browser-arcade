@@ -43,10 +43,6 @@ function drawScore() {
 function changeSnakeDirection(event) {
   console.log('changing direction...');
   const key = event.key;
-  const upArrow = 'ArrowUp';
-  const downArrow = 'ArrowDown';
-  const leftArrow = 'ArrowLeft';
-  const rightArrow = 'ArrowRight';
 
   if (key == 'ArrowUp' || key == 'w') {
     if (direction !== 'down') {
@@ -116,6 +112,7 @@ function updateSnakeGame() {
 
   // Check collision with food
   if (head.x === food.x && head.y === food.y) {
+    snakeColor = foodColor;
     // Increase score
     score += 10;
     // Generate new food
@@ -124,7 +121,6 @@ function updateSnakeGame() {
     // Remove tail segment if no food was eaten
     snake.pop();
   }
-
   // Add new head segment
   snake.unshift(head);
 
@@ -145,7 +141,7 @@ function drawSnakeGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Draw snake
   snake.forEach((segment) => {
-    ctx.fillStyle = '#0cdcca';
+    ctx.fillStyle = snakeColor;
     ctx.fillRect(
       segment.x * gridSize,
       segment.y * gridSize,
