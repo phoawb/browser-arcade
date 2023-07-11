@@ -4,6 +4,22 @@ if (!canvas) {
 }
 const ctx = canvas.getContext('2d');
 
+function getBallColor() {
+  let colorPalette = [
+    '#ff71ce',
+    '#05ffa1',
+    '#b967ff',
+    '#fffb96',
+    '#01cdfe',
+    '#FF0000',
+    '#0cdcca',
+  ];
+  let colorIndex = Math.floor(Math.random() * colorPalette.length);
+  return colorPalette[colorIndex];
+}
+let ballColor = '#0cdcca';
+let haveScored = false;
+
 // Restart the game
 function restartGame() {
   location.reload(); // Reload the page to restart the game
@@ -21,6 +37,20 @@ function gameOver() {
   if (buttonContainer) {
     buttonContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }
+}
+
+function increaseAcceleration(dx, dy) {
+  if (dx < 0) {
+    dx -= 1;
+  } else {
+    dx += 1;
+  }
+  if (dy < 0) {
+    dy -= 1;
+  } else {
+    dy += 1;
+  }
+  return { dx, dy };
 }
 
 let ballRadius = 10;
@@ -60,7 +90,7 @@ function keyUpHandler(e) {
 function drawBall() {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-  ctx.fillStyle = '#0095DD';
+  ctx.fillStyle = ballColor;
   ctx.fill();
   ctx.closePath();
 }
@@ -85,6 +115,13 @@ function draw() {
   drawPaddle();
   drawScore();
 
+  if (score != 0 && score % 50 == 0 && haveScored) {
+    newAcceleration = increaseAcceleration(dx, dy);
+    dx = newAcceleration.dx;
+    dy = newAcceleration.dy;
+    haveScored = false;
+  }
+
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     dx = -dx;
   }
@@ -94,6 +131,8 @@ function draw() {
     if (x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
       score += 10;
+      haveScored = true;
+      ballColor = getBallColor();
     } else {
       gameOver();
     }
